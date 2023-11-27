@@ -26,22 +26,34 @@ public class Dungeon {
         String n="n";
         String s="s";  
         String textIn;
+        ReturnValue rv;
         
         r = rooms[currentRoom];
         while (true) {
             r.doNarrative();
-            System.out.println("Tryck någon av riktingarna n,ö,s,v");
             textIn = input.nextLine();
-            currentRoom = r.nextRoom(textIn);
-            if (currentRoom == -1){
-                System.out.println("Det finns ingen dörr åt det hållet");
-            }
-            else if (currentRoom == -2){
-                System.out.println("Du har avslutat spelet");
-                break;
-            }
+            rv = r.nextRoom(textIn);
+            if (rv.getStatus() == -1) {
+                if (rv.getNextRoom() == -2) {
+                    System.out.println("Du har avslutat spelet");
+                    break;
+                }
+                else {
+                    System.out.println("Det finns ingen dörr åt det hållet");
+                }
+                continue;
+            }           
+            else if (rv.getStatus() == -3) {
+                Room tempr = rooms[rv.getNextRoom()];
+                System.out.println("Du har ingen nyckel till den dörren.");
+                if (tempr.hasTreasure()) {
+                    System.out.println("Du kikar genom nyckelhålet och ser en skattkista.");
+                    tempr.printTreasure();
+                }
+                continue;
+            }            
             else {
-                r = rooms[currentRoom];
+                r = rooms[rv.getNextRoom()];
             }
         }
         

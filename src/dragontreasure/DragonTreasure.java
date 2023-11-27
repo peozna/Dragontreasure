@@ -20,7 +20,9 @@ public class DragonTreasure {
     public void setupGame(){
         
         //room 0
-        Room room0 = new Room("Welcome to room 0");
+        Room room0 = new Room("Rummet är upplyst av några ljus som sitter på ett bord framför dig.\n"+
+            "Du kan gå norrut [n]\n" +
+            "Du kan gå söderut [s]", false);
         //connect north door to room 4
         room0.connectDoor(0, new Door('n', false, 4));
         //there is no door to the east
@@ -32,7 +34,10 @@ public class DragonTreasure {
         this.dungeon.setupRoom(0, room0);
         
          //room 1
-        Room room1 = new Room("Welcome to room 1");
+        Room room1 = new Room("Du kommer in i ett rymligt bergrum med en " +
+            "ljusstrimma sipprandes genom en spricka i den östra väggen.\n" +
+            "Du kan gå norrut [n]\n" +
+            "Du kan gå österut [ö]", false);
         //connect north door to room 0
         room1.connectDoor(0, new Door('n', false, 0));
         //connect east door to room 2
@@ -44,11 +49,15 @@ public class DragonTreasure {
         this.dungeon.setupRoom(1, room1);
         
          //room 2
-        Room room2 = new Room("Welcome to room 2");
+        Room room2 = new Room("Du kommer in i ett fuktigt rum med vatten " +
+            "sipprandes längs den västra väggen.\n" +
+            "Du ser en låst dörr till öster [ö]\n" +
+            "Du kan gå norrut [n]\n" +
+            "Du kan gå västerut [v]", false);
         //connect north door to room 5
         room2.connectDoor(0, new Door('n', false, 5));
         //connect east door to room 4
-        room2.connectDoor(1, new Door('ö', false, 4));
+        room2.connectDoor(1, new Door('ö', true, 3));
         //no door south
         room2.connectDoor(2, new Door('s', false, -1));
         //connect west door to room 1
@@ -56,7 +65,7 @@ public class DragonTreasure {
         this.dungeon.setupRoom(2, room2);
         
          //room 3
-        Room room3 = new Room("Welcome to room 3");
+        Room room3 = new Room("Welcome to room 3", true);
         //connect north door to room 4
         room3.connectDoor(0, new Door('n', false, -1));
         //there is no door to the east
@@ -68,7 +77,9 @@ public class DragonTreasure {
         this.dungeon.setupRoom(3, room3);
         
          //room 4
-        Room room4 = new Room("Welcome to room 4");
+        Room room4 = new Room("Du ser en död kropp på golvet.\n" +
+                "Du kan gå österut [ö]\n" +
+                "Du kan gå söderut [s]", false);
         //connect north door to room 4
         room4.connectDoor(0, new Door('n', false,-1));
         //there is no door to the east
@@ -80,7 +91,11 @@ public class DragonTreasure {
         this.dungeon.setupRoom(4, room4);
         
          //room 5
-        Room room5 = new Room("Welcome to room 5");
+        Room room5 = new Room("Du ser en brinnande fackla i rummets ena hörn" +
+                "och känner en motbjudande stank.\n" +
+                "Du ser en utgång österut [ö]\n" +
+                "Du kan gå västerut [v]\n" +
+                "Du kan gå söderut [s]", false);
         //connect north door to room 4
         room5.connectDoor(0, new Door('n', false, 4));
         //connect east to exit the game
@@ -91,23 +106,7 @@ public class DragonTreasure {
         room5.connectDoor(3, new Door('v', false, 4));
         this.dungeon.setupRoom(5, room5);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+       
  public static void main(String[] args){
     DragonTreasure dt = new DragonTreasure(new Dungeon(0, "Welcome to dungeons", 6));
     dt.setupGame();
@@ -115,9 +114,6 @@ public class DragonTreasure {
     Scanner input = new Scanner(System.in);
     
     String ö = "ö";
-    String v="v";
-    String n="n";
-    String s="s";  
     String textIn;
      
      
@@ -140,7 +136,7 @@ public class DragonTreasure {
         textIn = input.nextLine();
     }
     
-    System.out.printf("Du går in i grottan. %n"); 
+    System.out.printf("När du går in i grottan kollapsar ingången bakom dig. %n"); 
     
     dt.dungeon.playGame();
     
