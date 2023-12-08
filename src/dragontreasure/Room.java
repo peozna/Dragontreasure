@@ -3,22 +3,74 @@ package dragontreasure;
  *
  * @author nanna
  */
+import java.util.HashSet;
+import java.util.List;
 public class Room {
     
     private String roomDesc;
     private Door[] doors;
     private boolean hasTreasure;
+    private int addMonster;
+    private int removeMonster;
+    private boolean hasMonster;
     
-    public Room(String r, boolean hT) {
+    HashSet<Integer> monsters;
+    HashSet<Integer> items;              
+    
+    public void addMonster(int index) {
+        monsters.add(index);
+    }
+    
+    public void removeMonster(int index) {
+        monsters.remove(index);
+    }
+    
+    public boolean hasMonster() {
+        if (monsters.size() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+ 
+    public HashSet<Integer> getAllMonsters () {
+        return monsters;
+    }
+    public void addItem(int index) {
+        items.add(index);
+    }
+    
+    public void removeItem(int index) {
+        items.remove(index);
+    }
+    
+    public boolean hasItem() {
+        if (items.size() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+ 
+    public HashSet<Integer> getAllItems () {
+        return items;
+    }
+    
+    public Room(String r, boolean hT, boolean hI, boolean hM) {
         roomDesc = r;
         doors = new Door[4];
         hasTreasure = hT;
+        hasMonster = hM;
+        monsters = new HashSet<Integer>();
+        items = new HashSet<Integer>();
     }
     
     public boolean hasTreasure() {
         return hasTreasure;
     }
-    
+
     public void doNarrative() {
         System.out.println( this.roomDesc);
     }
