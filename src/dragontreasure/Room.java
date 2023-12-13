@@ -45,6 +45,10 @@ public class Room {
         items.remove(index);
     }
     
+   public boolean existItem(int index) {
+       return items.contains(index);
+   }
+    
     public boolean hasItem() {
         if (items.size() > 0) {
             return true;

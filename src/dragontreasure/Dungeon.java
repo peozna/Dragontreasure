@@ -24,7 +24,7 @@ public class Dungeon {
         monsters = new Monster [2];
         items = new Item [4];
     }
-    public void playGame(){
+    public void playGame(Player player){
         Room r;
         Scanner input = new Scanner(System.in);
         String ö = "ö";
@@ -39,10 +39,10 @@ public class Dungeon {
         while (true) {
             r.doNarrative();
             descAnyMonsters(r);
-            descAnyItems(r);
+            descRoomItems(r);
             System.out.println(r.getRoomDirection());
             textIn = input.nextLine();
-            rv = r.nextRoom(textIn);
+            rv = processInput(player, r, textIn);
             switch (rv.getStatus()) {
                 case -1:
                     if (rv.getNextRoom() == -2) {
@@ -59,6 +59,8 @@ public class Dungeon {
                         System.out.println("Du kikar genom nyckelhålet och ser en skattkista.");
                         tempr.printTreasure();
                     }
+                    break;
+                case -4:
                     break;
                 default:
                     r = rooms[rv.getNextRoom()];
@@ -89,14 +91,47 @@ public class Dungeon {
     public void setupItem (int index, Item i) {
         this.items[index] = i;
     } 
-    public void descAnyItems(Room r) {
+    public void descRoomItems(Room r) {
         if (r.hasItem()) {
             HashSet <Integer> roomItem = r.getAllItems();
             for (Integer i : roomItem) {
                 Item x = this.items[i];
-                String desc = x.getItemDesc();
+                String desc = x.getItemDesc() + "[" + Integer.toString(i) + "]";
                 System.out.println(desc);
             }
+        }
+    }
+    
+    public void descPlayerItems(Player p) {
+        if (p.hasItem()) {
+            HashSet <Integer> playerItem = p.getAllItems();
+            System.out.println("Du har följande saker: ");
+            for (Integer i : playerItem) {
+                Item x = this.items[i];
+                String desc = x.getName();
+                System.out.println("  " + desc);
+            }
+        }
+    }
+     
+    public ReturnValue processInput (Player p, Room r, String input) {
+        if (input.startsWith("t")) {
+            String [] arrofStr = input.split(" ", 2);
+            Integer i = Integer.valueOf(arrofStr[1]);
+            if (r.existItem(i)) {
+                System.out.println ("Du plockade upp: " + items[i].getName());
+                r.removeItem(i);
+                p.addItem(i);
+            }
+            return new ReturnValue(-4, -1); 
+        }
+        else if (input.startsWith("i")) {
+            descPlayerItems(p);
+            return new ReturnValue(-4, -1); 
+        }
+        
+        else {
+            return r.nextRoom(input); 
         }
     }
 }

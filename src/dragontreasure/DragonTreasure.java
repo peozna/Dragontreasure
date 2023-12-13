@@ -15,13 +15,13 @@ public class DragonTreasure {
     public void setupGame(){
         
         //item setup
-        Item key = new Key("key", "En rostig nyckel");
+        Item key = new Key("nyckel", "En rostig nyckel");
         this.dungeon.setupItem(0, key);
-        Item potion = new Potion ("potion", "Du hittar en hälsodryck!");
+        Item potion = new Potion ("hälsodryck", "Du hittar en hälsodryck!");
         this.dungeon.setupItem(1, potion);
-        Item weapon = new Weapon ("sword", "Du ser ett glimmande svärd på marken.");
+        Item weapon = new Weapon ("svärd", "Du ser ett glimmande svärd på marken.");
         this.dungeon.setupItem (2, weapon);
-        Item treasure = new Treasure ("treasure", "En stor skattkista står i mitten av rummet.");
+        Item treasure = new Treasure ("skatt", "En stor skattkista står i mitten av rummet.");
         this.dungeon.setupItem (3, treasure);
         
         //monster setup
@@ -46,7 +46,8 @@ public class DragonTreasure {
         this.dungeon.setupRoom(0, room0);
         
          //room 1
-        Room room1 = new Room("Du kommer in i ett rymligt bergrum med en ",
+        Room room1 = new Room("Du kommer in i ett rymligt bergrum med en "+
+                "ljusstrimma sipprandes genom en spricka i väggen",
                 false, true, false);
         //connect north door to room 0
         room1.connectDoor(0, new Door('n', false, 0));
@@ -132,8 +133,7 @@ public class DragonTreasure {
     System.out.println("Välkommen till Dragon Treasure");
     System.out.println("Skriv ditt namn och tryck på [Enter] för att starta spelet...");
     String theName = input.nextLine();
-    Player mySpelare = new Player();
-    mySpelare.setName(theName);
+    Player mySpelare = new Player(theName);
                  
     System.out.printf("Välkommen %s till din skattjakt! %n", mySpelare.getName());
     
@@ -150,7 +150,7 @@ public class DragonTreasure {
     
     System.out.printf("När du går in i grottan kollapsar ingången bakom dig. %n"); 
     
-    dt.dungeon.playGame();
+    dt.dungeon.playGame(mySpelare);
     
      System.out.printf("Du gick ur grottan. %n");
    }
