@@ -5,14 +5,15 @@ package dragontreasure;
  */
 public class Door {
     
-    private char position;
+    // direction 'n' = north etc
+    private char direction;
     private boolean locked;
     
     //points to the adjoining room in the rooms array
     private int nextRoom;
     
-    public Door(char p, boolean l, int nR){
-        position = p;
+    public Door(char d, boolean l, int nR){
+        direction = d;
         locked = l;
         nextRoom = nR;
     }
@@ -25,4 +26,11 @@ public class Door {
         return nextRoom;
     }
     
+    public char getDirection () {
+        return direction;
+    }
+    
+    public boolean validRoom() {
+        return (nextRoom >= 0);
+    }
 }

@@ -17,6 +17,12 @@ public class DragonTreasure {
         //item setup
         Item key = new Key("key", "En rostig nyckel");
         this.dungeon.setupItem(0, key);
+        Item potion = new Potion ("potion", "Du hittar en hälsodryck!");
+        this.dungeon.setupItem(1, potion);
+        Item weapon = new Weapon ("sword", "Du ser ett glimmande svärd på marken.");
+        this.dungeon.setupItem (2, weapon);
+        Item treasure = new Treasure ("treasure", "En stor skattkista står i mitten av rummet.");
+        this.dungeon.setupItem (3, treasure);
         
         //monster setup
         Monster monster0 = new Monster("Drake", 18, 2, "En enorm eldsprutande drake"+
@@ -27,9 +33,8 @@ public class DragonTreasure {
         this.dungeon.setupMonster(1, monster1);
         
         //room 0
-        Room room0 = new Room("Rummet är upplyst av några ljus som sitter på ett bord framför dig.\n"+
-            "Du kan gå norrut [n]\n" +
-            "Du kan gå söderut [s]", false, false, false);
+        Room room0 = new Room("Rummet är upplyst av några ljus som sitter på ett bord framför dig.\n",
+             false, false, false);
         //connect north door to room 4
         room0.connectDoor(0, new Door('n', false, 4));
         //there is no door to the east
@@ -41,10 +46,8 @@ public class DragonTreasure {
         this.dungeon.setupRoom(0, room0);
         
          //room 1
-        Room room1 = new Room("Du kommer in i ett rymligt bergrum med en " +
-            "ljusstrimma sipprandes genom en spricka i den östra väggen.\n" +
-            "Du kan gå norrut [n]\n" +
-            "Du kan gå österut [ö]", false, true, false);
+        Room room1 = new Room("Du kommer in i ett rymligt bergrum med en ",
+                false, true, false);
         //connect north door to room 0
         room1.connectDoor(0, new Door('n', false, 0));
         //connect east door to room 2
@@ -57,11 +60,8 @@ public class DragonTreasure {
         this.dungeon.setupRoom(1, room1);
         
          //room 2
-        Room room2 = new Room("Du kommer in i ett fuktigt rum med vatten " +
-            "sipprandes längs den västra väggen.\n" +
-            "Du ser en låst dörr till öster [ö]\n" +
-            "Du kan gå norrut [n]\n" +
-            "Du kan gå västerut [v]", false, true, false);
+        Room room2 = new Room("Du kommer in i ett fuktigt rum med vatten ",
+                false, true, false);
         //connect north door to room 5
         room2.connectDoor(0, new Door('n', false, 5));
         //connect east door to room 4
@@ -70,10 +70,12 @@ public class DragonTreasure {
         room2.connectDoor(2, new Door('s', false, -1));
         //connect west door to room 1
         room2.connectDoor(3, new Door('v', false, 1));
+        room2.addItem (1);
         this.dungeon.setupRoom(2, room2);
         
          //room 3
-        Room room3 = new Room("Du kommer int i rummet och ser den stora skattkistan, ", true, false, true);
+        Room room3 = new Room("Du kommer in i rummet och ser den stora skattkistan, ",
+                true, false, true);
         //connect north door to room 4
         room3.connectDoor(0, new Door('n', false, -1));
         //there is no door to the east
@@ -83,14 +85,14 @@ public class DragonTreasure {
         //there is no door to the west
         room3.connectDoor(3, new Door('v', false, 2));
         room3.addMonster(0);
+        room3.addItem(3);
         this.dungeon.setupRoom(3, room3);
     
         
         
          //room 4
-        Room room4 = new Room("Du ser en död kropp på golvet.\n" +
-                "Du kan gå österut [ö]\n" +
-                "Du kan gå söderut [s]", false, true, false);
+        Room room4 = new Room("Du ser en död kropp på golvet.\n", 
+                 false, true, false);
         //connect north door to room 4
         room4.connectDoor(0, new Door('n', false,-1));
         //there is no door to the east
@@ -99,14 +101,12 @@ public class DragonTreasure {
         room4.connectDoor(2, new Door('s', false, 0));
         //there is no door to the west
         room4.connectDoor(3, new Door('v', false, -1));
+        room4.addItem (2);
         this.dungeon.setupRoom(4, room4);
         
          //room 5
-        Room room5 = new Room("Du ser en brinnande fackla i rummets ena hörn " +
-                "och känner en motbjudande stank.\n" +
-                "Du ser en utgång österut [ö]\n" +
-                "Du kan gå västerut [v]\n" +
-                "Du kan gå söderut [s]", false, false, true);
+        Room room5 = new Room("Du ser en brinnande fackla i rummets ena hörn ",
+                false, false, true);
         //connect north door to room 4
         room5.connectDoor(0, new Door('n', false, 4));
         //connect east to exit the game

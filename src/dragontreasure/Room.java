@@ -135,6 +135,23 @@ public class Room {
         }    
     }    
     
+    public String getRoomDirection () {
+        String s = "";
+        if (doors[0].validRoom() && doors[0].getDirection() == 'n') {
+            s += "En dörr leder norrut [n]\n";
+        }
+        if (doors[1].validRoom() && doors[1].getDirection() == 'ö') {
+            s += "En dörr leder österut [ö]\n";
+        }
+        if (doors[2].validRoom() && doors[2].getDirection() == 's') {
+            s += "En dörr leder söderut [s]\n";
+        }
+        if (doors[3].validRoom() && doors[3].getDirection() == 'v') {
+            s += "En dörr leder västerut [v]\n";
+        }
+        return s;
+    }
+    
     public void printTreasure(){
         System.out.println(
             "          _.--.\n"+

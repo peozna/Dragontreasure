@@ -37,9 +37,10 @@ public class Dungeon {
         r = rooms[currentRoom];
         OUTER:
         while (true) {
+            r.doNarrative();
             descAnyMonsters(r);
             descAnyItems(r);
-            r.doNarrative();
+            System.out.println(r.getRoomDirection());
             textIn = input.nextLine();
             rv = r.nextRoom(textIn);
             switch (rv.getStatus()) {
