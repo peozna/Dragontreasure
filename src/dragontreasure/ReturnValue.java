@@ -4,16 +4,23 @@ package dragontreasure;
  * @author nanna
  */
 public class ReturnValue {
-    private int status;
+    public enum ReturnCode {
+        OK,
+        ERROR,
+        LOCKED,
+        EXIT,
+        NOOP // no operation
+    }
+    private ReturnCode rc;
     private int nextRoom;
     
-    public ReturnValue(int s, int nR) {
-        status = s;
+    public ReturnValue(ReturnCode s, int nR) {
+        rc = s;
         nextRoom = nR;
     }
     
-    public int getStatus() {
-        return this.status;
+    public ReturnCode getReturnCode() {
+        return this.rc;
     }
     
     public int getNextRoom(){

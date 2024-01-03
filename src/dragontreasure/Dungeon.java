@@ -7,6 +7,8 @@ package dragontreasure;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import dragontreasure.ReturnValue.ReturnCode;
+
 public class Dungeon {
     
     private int currentRoom;
@@ -43,8 +45,8 @@ public class Dungeon {
             System.out.println(r.getRoomDirection());
             textIn = input.nextLine();
             rv = processInput(player, r, textIn);
-            switch (rv.getStatus()) {
-                case -1:
+            switch (rv.getReturnCode()) {
+                case ERROR:
                     if (rv.getNextRoom() == -2) {
                         System.out.println("Du har avslutat spelet");
                         break OUTER;
@@ -52,7 +54,7 @@ public class Dungeon {
                         System.out.println("Det finns ingen dörr åt det hållet");
                     }
                     break;
-                case -3:
+                case LOCKED:
                     Room tempr = rooms[rv.getNextRoom()];
                     System.out.println("Du har ingen nyckel till den dörren.");
                     if (tempr.hasTreasure()) {
@@ -60,7 +62,7 @@ public class Dungeon {
                         tempr.printTreasure();
                     }
                     break;
-                case -4:
+                case NOOP:
                     break;
                 default:
                     r = rooms[rv.getNextRoom()];
@@ -88,6 +90,7 @@ public class Dungeon {
         }
     }
     
+    
     public void setupItem (int index, Item i) {
         this.items[index] = i;
     } 
@@ -98,6 +101,7 @@ public class Dungeon {
                 Item x = this.items[i];
                 String desc = x.getItemDesc() + "[" + Integer.toString(i) + "]";
                 System.out.println(desc);
+                System.out.println("För att plocka upp föremål tryck [t] mellanslag siffran");
             }
         }
     }
@@ -123,11 +127,11 @@ public class Dungeon {
                 r.removeItem(i);
                 p.addItem(i);
             }
-            return new ReturnValue(-4, -1); 
+            return new ReturnValue(ReturnCode.NOOP, -1); 
         }
         else if (input.startsWith("i")) {
             descPlayerItems(p);
-            return new ReturnValue(-4, -1); 
+            return new ReturnValue(ReturnCode.NOOP, -1); 
         }
         
         else {

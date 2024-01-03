@@ -47,7 +47,7 @@ public class DragonTreasure {
         
          //room 1
         Room room1 = new Room("Du kommer in i ett rymligt bergrum med en "+
-                "ljusstrimma sipprandes genom en spricka i väggen",
+                "ljusstrimma sipprandes genom en spricka i den östra väggen",
                 false, true, false);
         //connect north door to room 0
         room1.connectDoor(0, new Door('n', false, 0));
@@ -61,7 +61,8 @@ public class DragonTreasure {
         this.dungeon.setupRoom(1, room1);
         
          //room 2
-        Room room2 = new Room("Du kommer in i ett fuktigt rum med vatten ",
+        Room room2 = new Room("Du kommer in i ett fuktigt rum med vatten "+
+                "sipprandes längs den ena väggen",
                 false, true, false);
         //connect north door to room 5
         room2.connectDoor(0, new Door('n', false, 5));

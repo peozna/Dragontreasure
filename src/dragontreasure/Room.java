@@ -5,6 +5,8 @@ package dragontreasure;
  */
 import java.util.HashSet;
 import java.util.List;
+import dragontreasure.ReturnValue.ReturnCode;
+
 public class Room {
     
     private String roomDesc;
@@ -85,57 +87,57 @@ public class Room {
    
     public ReturnValue nextRoom(String direction){
         Door d;
-        Room r;
+        
         if (direction.equals("n")) {
             d = doors[0];
             if (d.isLocked()){
-                return new ReturnValue(-3, d.nextRoom());
+                return new ReturnValue(ReturnCode.LOCKED, d.nextRoom());
             }
             else if (d.nextRoom() >= 0) {
-                return new ReturnValue(0, d.nextRoom());    
+                return new ReturnValue(ReturnCode.OK, d.nextRoom());    
             }
             else {
-                return new ReturnValue(-1, d.nextRoom());
+                return new ReturnValue(ReturnCode.ERROR, d.nextRoom());
             }
         }
         else if (direction.equals("ö")){
             d = doors[1];
             if (d.isLocked()){
-                return new ReturnValue(-3, d.nextRoom());
+                return new ReturnValue(ReturnCode.LOCKED, d.nextRoom());
             }
             else if (d.nextRoom() >= 0) {
-                return new ReturnValue(0, d.nextRoom());    
+                return new ReturnValue(ReturnCode.OK, d.nextRoom());    
             }
             else {
-                return new ReturnValue(-1, d.nextRoom());
+                return new ReturnValue(ReturnCode.ERROR, d.nextRoom());
             }
         }
         else if (direction.equals("s")){
             d = doors[2];
             if (d.isLocked()){
-                  return new ReturnValue(-3, d.nextRoom());
+                  return new ReturnValue(ReturnCode.LOCKED, d.nextRoom());
             }
             else if (d.nextRoom() >= 0) {
-                return new ReturnValue(0, d.nextRoom());    
+                return new ReturnValue(ReturnCode.OK, d.nextRoom());    
             }
             else {
-                return new ReturnValue(-1, d.nextRoom());
+                return new ReturnValue(ReturnCode.ERROR, d.nextRoom());
             }
         }
         else if (direction.equals("v")) {
             d = doors[3];
             if (d.isLocked()){
-                return new ReturnValue(-3, d.nextRoom());
+                return new ReturnValue(ReturnCode.LOCKED, d.nextRoom());
             }
            else if (d.nextRoom() >= 0) {
-                return new ReturnValue(0, d.nextRoom());    
+                return new ReturnValue(ReturnCode.OK, d.nextRoom());    
             }
             else {
-                return new ReturnValue(-1, d.nextRoom());
+                return new ReturnValue(ReturnCode.ERROR, d.nextRoom());
             }
         }
         else {
-            return new ReturnValue(-1, -1);       
+            return new ReturnValue(ReturnCode.ERROR, -1);       
         }    
     }    
     
