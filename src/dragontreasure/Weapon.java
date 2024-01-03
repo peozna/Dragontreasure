@@ -4,14 +4,12 @@ package dragontreasure;
  * @author nanna
  */
 public class Weapon extends Item {
-    private int increaseDamage;
     
-    public Weapon (String name, String itemDesc) {
-       super (name, itemDesc);
+    public Weapon (String name, String itemDesc, int dP) {
+       super (name, itemDesc, dP);
+      
     }
     
-    public void increaseDamage(int inD){
-    this.increaseDamage = inD;
-    }
+  
     
 }

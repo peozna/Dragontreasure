@@ -10,12 +10,13 @@ import java.util.HashSet;
 public class Player {
     private String name;
     private int healthPoints;
-    private int damage;
+    private int damagePoint = 1;
     private HashSet<Integer> items;
     
-    public Player (String name) {
+    public Player (String name, int hP) {
         this.name = name;
         this.items = new HashSet<Integer>();
+        this.healthPoints = hP;
     }
     
    public void setName(String name) {
@@ -26,8 +27,24 @@ public class Player {
      return name;
 }
 
+    public int getDamagePoint () {
+        return this.damagePoint;
+    }
+    
+    public void decrementHP(int dP) {
+        this.healthPoints -= dP;
+        if (this.healthPoints < 0) {
+            this.healthPoints = 0;
+        }
+    }
+    
+    public boolean isDead() {
+        return this.healthPoints == 0;
+    }
+    
     public void addItem(int index) {
         items.add(index);
+        
     }
     
     public void removeItem(int index) {

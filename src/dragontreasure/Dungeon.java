@@ -22,9 +22,9 @@ public class Dungeon {
     public Dungeon(int cR, String wM, int numberRooms){
         currentRoom = cR;
         welcomeMessage = wM;
-        rooms = new Room[6];
-        monsters = new Monster [2];
-        items = new Item [4];
+        this.rooms = new Room[6];
+        this.monsters = new Monster [2];
+        this.items = new Item [4];
     }
     public void playGame(Player player){
         Room r;
@@ -64,6 +64,9 @@ public class Dungeon {
                     break;
                 case NOOP:
                     break;
+                case DEAD: 
+                    System.out.println("Du dog.");
+                    break OUTER;
                 default:
                     r = rooms[rv.getNextRoom()];
                     break;
@@ -117,7 +120,59 @@ public class Dungeon {
             }
         }
     }
-     
+    
+    public int getPlayerDP(Player p) {
+        int dP = 0;
+        
+        if (p.hasItem()) {
+            HashSet <Integer> playerItem = p.getAllItems();
+            for (Integer i : playerItem) {
+                Item x = this.items[i];
+                dP = x.getDamagePoint();
+            }
+        }
+        return dP;
+    }
+    
+    public boolean hasPlayerKey(Player p) {
+        if (p.hasItem()) {
+            HashSet <Integer> playerItem = p.getAllItems();
+            for (Integer i : playerItem) {
+                Item x = this.items[i];
+                String n = x.getName();
+                if (n.equals("nyckel")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public int getMonsterDP(Room r) {
+        int dP = 0;
+        
+        if (r.hasMonster()) {
+            HashSet <Integer> monster = r.getAllMonsters();
+            for (Integer i : monster) {
+                Monster x = this.monsters[i];
+                dP = x.getDamagePoint();               
+            }
+        }
+        return dP;
+    }
+    
+     public int decrementMonsterHP(Room r, int dP) {
+        if (r.hasMonster()) {
+            HashSet <Integer> monster = r.getAllMonsters();
+            for (Integer i : monster) {
+                Monster x = this.monsters[i];
+                x.decrementHP(dP);
+                return x.getHP();
+            }
+        }
+        return -1;
+    }
+    
     public ReturnValue processInput (Player p, Room r, String input) {
         if (input.startsWith("t")) {
             String [] arrofStr = input.split(" ", 2);
@@ -133,9 +188,37 @@ public class Dungeon {
             descPlayerItems(p);
             return new ReturnValue(ReturnCode.NOOP, -1); 
         }
+        else if (input.startsWith("f")) {
+            if (r.hasMonster()) {
+                int playerDP = getPlayerDP(p);
+                int monsterDP = getMonsterDP(r);
+                p.decrementHP(monsterDP);
+                int monsterHP = decrementMonsterHP(r, playerDP);
+                if (p.isDead()) {
+                    return new ReturnValue(ReturnCode.DEAD, -1); 
+                }
+                else if (monsterHP > 0) {
+                    System.out.println("Monstret dog inte.");
+                    return new ReturnValue(ReturnCode.NOOP, -1);
+                }
+                else if (monsterHP == 0) {
+                    System.out.println("Monstret dog.");
+                    return new ReturnValue(ReturnCode.NOOP, -1);
+                }
+                else {
+                    return new ReturnValue(ReturnCode.NOOP, -1);
+                }
+            }
+            else {
+                System.out.println("Det finns inget monster att slåss mot.");
+                return new ReturnValue(ReturnCode.NOOP, -1); 
+            }
+          
+        }
         
         else {
-            return r.nextRoom(input); 
+            boolean hasKey = hasPlayerKey(p);
+            return r.nextRoom(input, hasKey); 
         }
     }
 }

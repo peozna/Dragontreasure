@@ -8,6 +8,6 @@ public class Potion extends Item {
     private int healing;
     
     public Potion (String name, String itemDesc) {
-       super (name, itemDesc);
+       super (name, itemDesc, 0);
     }
 }

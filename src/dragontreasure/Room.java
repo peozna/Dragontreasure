@@ -85,12 +85,12 @@ public class Room {
         doors[index] = d;
     }
    
-    public ReturnValue nextRoom(String direction){
+    public ReturnValue nextRoom(String direction, boolean hasKey){
         Door d;
         
         if (direction.equals("n")) {
             d = doors[0];
-            if (d.isLocked()){
+            if (d.isLocked() && !hasKey){
                 return new ReturnValue(ReturnCode.LOCKED, d.nextRoom());
             }
             else if (d.nextRoom() >= 0) {
@@ -102,7 +102,7 @@ public class Room {
         }
         else if (direction.equals("ö")){
             d = doors[1];
-            if (d.isLocked()){
+            if (d.isLocked() && !hasKey){
                 return new ReturnValue(ReturnCode.LOCKED, d.nextRoom());
             }
             else if (d.nextRoom() >= 0) {
@@ -114,7 +114,7 @@ public class Room {
         }
         else if (direction.equals("s")){
             d = doors[2];
-            if (d.isLocked()){
+            if (d.isLocked() && !hasKey){
                   return new ReturnValue(ReturnCode.LOCKED, d.nextRoom());
             }
             else if (d.nextRoom() >= 0) {
@@ -126,7 +126,7 @@ public class Room {
         }
         else if (direction.equals("v")) {
             d = doors[3];
-            if (d.isLocked()){
+            if (d.isLocked() && !hasKey){
                 return new ReturnValue(ReturnCode.LOCKED, d.nextRoom());
             }
            else if (d.nextRoom() >= 0) {

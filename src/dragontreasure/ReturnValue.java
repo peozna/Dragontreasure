@@ -9,6 +9,7 @@ public class ReturnValue {
         ERROR,
         LOCKED,
         EXIT,
+        DEAD,
         NOOP // no operation
     }
     private ReturnCode rc;

@@ -5,6 +5,6 @@ package dragontreasure;
  */
 public class Key extends Item {
     public Key (String name, String itemDesc) {
-       super (name, itemDesc);
+       super (name, itemDesc, 0);
     }
 }

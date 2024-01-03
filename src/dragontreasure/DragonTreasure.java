@@ -19,7 +19,7 @@ public class DragonTreasure {
         this.dungeon.setupItem(0, key);
         Item potion = new Potion ("hälsodryck", "Du hittar en hälsodryck!");
         this.dungeon.setupItem(1, potion);
-        Item weapon = new Weapon ("svärd", "Du ser ett glimmande svärd på marken.");
+        Item weapon = new Weapon ("svärd", "Du ser ett glimmande svärd på marken.", 2);
         this.dungeon.setupItem (2, weapon);
         Item treasure = new Treasure ("skatt", "En stor skattkista står i mitten av rummet.");
         this.dungeon.setupItem (3, treasure);
@@ -27,7 +27,7 @@ public class DragonTreasure {
         //monster setup
         Monster monster0 = new Monster("Drake", 18, 2, "En enorm eldsprutande drake"+
                 "uppenbarar sig från skugggorna.");
-        Monster monster1 = new Monster("Troll", 12, 2, "Ett stort illaluktande troll står i ena hörnet "+
+        Monster monster1 = new Monster("Troll", 5, 2, "Ett stort illaluktande troll står i ena hörnet "+
                 "och stirrar på dig.");
         this.dungeon.setupMonster(0, monster0);
         this.dungeon.setupMonster(1, monster1);
@@ -134,7 +134,7 @@ public class DragonTreasure {
     System.out.println("Välkommen till Dragon Treasure");
     System.out.println("Skriv ditt namn och tryck på [Enter] för att starta spelet...");
     String theName = input.nextLine();
-    Player mySpelare = new Player(theName);
+    Player mySpelare = new Player(theName, 10);
                  
     System.out.printf("Välkommen %s till din skattjakt! %n", mySpelare.getName());
     
